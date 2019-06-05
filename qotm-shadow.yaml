@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qotm-shadow
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  qotm_shadow_mapping
+      prefix: /qotm/
+      service: qotm-shadow
+      shadow: true
+spec:
+  selector:
+    app: qotm-shadow
+  ports:
+  - port: 80
+    name: http-qotm-shadow
+    targetPort: http-api
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: qotm-shadow
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: qotm-shadow
+    spec:
+      containers:
+      - name: qotm-shadow
+        image: datawire/qotm:1.3
+        ports:
+        - name: http-api
+          containerPort: 5000
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: 100Mi
