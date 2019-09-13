@@ -1,0 +1,8 @@
+  
+apiVersion: getambassador.io/v1
+kind: Mapping
+metadata:
+    name: nginx-dev
+spec:
+    prefix: /nginx-dev/
+    service: nginx-dev.demo

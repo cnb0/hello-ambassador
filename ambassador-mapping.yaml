@@ -1,0 +1,24 @@
+---
+apiVersion: getambassador.io/v1
+kind:  Mapping
+metadata:
+  name:  httpbin-mapping
+spec:
+  prefix: /httpbin/
+  service: httpbin.org:80
+  host_rewrite: httpbin.org
+  headers:
+    authorization: Bearer foobartest
+---
+apiVersion: getambassador.io/v1
+kind:  Mapping
+metadata:
+  name:  mockbin-mapping
+spec:
+  prefix: /mockbin/
+  service: mockbin.org:80
+  host_rewrite: mockbin.org
+  headers:
+    x-orangesys-key: foobar
+    x-prometheus-key: mockbin
+

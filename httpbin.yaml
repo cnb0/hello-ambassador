@@ -12,6 +12,19 @@ metadata:
       prefix: /httpbin/
       service: httpbin.org:80
       host_rewrite: httpbin.org
+      headers:
+        x-orangesys-key: foobar
+        x-prometheus-key: httpbin
+      ---
+      apiVersion: ambassador/v0
+      kind:  Mapping
+      name:  mockbin_mapping
+      prefix: /mockbin/
+      service: mockbin.org:80
+      host_rewrite: mockbin.org
+      headers:
+        x-orangesys-key: foobar
+        x-prometheus-key: mockbin
 spec:
   ports:
   - name: httpbin
